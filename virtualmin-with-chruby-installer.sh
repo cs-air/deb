@@ -20,11 +20,6 @@ cat <<EOF > /etc/profile.d/chruby.sh
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
 chruby ruby
-function rbv()
-{
-  case "$1" in
-    "") chruby;;
-    *) chruby *;;
-  esac
-}
+sed -i '/.*chruby_use \"\$match\" \"\$\*\"/ a\
+echo $1 > .ruby_version' /usr/local/share/chruby/chruby.sh
 EOF
