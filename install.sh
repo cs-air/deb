@@ -1,6 +1,7 @@
 cd ~
-wget -O virtualmin-install.sh http://software.virtualmin.com/gpl/scripts/install.sh
-sh virtualmin-install.sh
+curl http://software.virtualmin.com/gpl/scripts/install.sh | bash
+#wget -O virtualmin-install.sh http://software.virtualmin.com/gpl/scripts/install.sh
+#sh virtualmin-install.sh
  
 wget -O chruby-0.3.8.tar.gz https://github.com/postmodern/chruby/archive/v0.3.8.tar.gz
 tar -xzvf chruby-0.3.8.tar.gz
