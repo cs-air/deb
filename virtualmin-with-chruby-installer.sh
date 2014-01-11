@@ -22,5 +22,5 @@ source /usr/local/share/chruby/auto.sh
 chruby ruby
 EOF
 
-sed -i '/.*chruby_use \"\$match\" \"\$\*\"/ a\
+sed -i '/.*shift/ a\
 echo "$1" > .ruby_version' /usr/local/share/chruby/chruby.sh
