@@ -19,8 +19,12 @@ cat <<EOF > /etc/profile.d/chruby.sh
  
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
+function rb()
+{
+  echo "$1" > ~/.ruby_version
+}
 chruby ruby
 EOF
 
-sed -i '/.*shift/ i\
-echo "$1" > .ruby_version' /usr/local/share/chruby/chruby.sh
+#sed -i '/.*shift/ i\
+#echo "$1" > .ruby_version' /usr/local/share/chruby/chruby.sh
