@@ -23,4 +23,4 @@ chruby ruby
 EOF
 
 sed -i '/.*chruby_use \"\$match\" \"\$\*\"/ a\
-echo $1 > .ruby_version' /usr/local/share/chruby/chruby.sh
+echo "$1" > .ruby_version' /usr/local/share/chruby/chruby.sh
