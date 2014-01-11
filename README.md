@@ -1,4 +1,4 @@
-virtualmin-with-chruby-installer
+virtualmin-chruby-passenger-installer
 ================================
 
-virtualmin with chruby installer
+virtualmin-chruby-passenger-installer
