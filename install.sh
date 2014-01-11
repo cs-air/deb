@@ -25,4 +25,4 @@ chruby_use /opt/rubies/ruby-2.1.0
 EOF
 
 sed -i '/.*shift/ i\
-echo "$1" > .ruby-version' /usr/local/share/chruby/chruby.sh
+echo "$1" > ~/.ruby-version' /usr/local/share/chruby/chruby.sh
