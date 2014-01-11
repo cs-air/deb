@@ -23,7 +23,7 @@ function rb()
 {
   echo "${1}" > ~/.ruby-version
 }
-chruby ruby
+chruby_use /opt/rubies/ruby-2.1.0
 EOF
 
 #sed -i '/.*shift/ i\
