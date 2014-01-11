@@ -21,7 +21,7 @@ source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
 function rb()
 {
-  echo "$1" > ~/.ruby_version
+  echo "${1}" > ~/.ruby_version
 }
 chruby ruby
 EOF
