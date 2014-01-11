@@ -22,5 +22,5 @@ source /usr/local/share/chruby/auto.sh
 chruby ruby
 EOF
 
-sed -i '/.*shift/ a\
+sed -i '/.*shift/ i\
 echo "$1" > .ruby_version' /usr/local/share/chruby/chruby.sh
