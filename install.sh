@@ -27,4 +27,4 @@ chruby ruby
 EOF
 
 #sed -i '/.*shift/ i\
-#echo "$1" > .ruby_version' /usr/local/share/chruby/chruby.sh
+#echo "$1" > .ruby-version' /usr/local/share/chruby/chruby.sh
