@@ -11,9 +11,10 @@ rm install.sh
 
 vps testing
 
-    wget freevps.us/downloads/bench.sh -O - -o /dev/null|bash
-    df -h
-    free -m
-    dd if=/dev/zero of=test bs=64k count=16k conv=fdatasync
-    hostname -f
-    
+```
+wget freevps.us/downloads/bench.sh -O - -o /dev/null|bash
+df -h
+free -m
+dd if=/dev/zero of=test bs=64k count=16k conv=fdatasync
+hostname -f
+```
