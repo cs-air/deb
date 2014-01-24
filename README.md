@@ -1,4 +1,4 @@
-virtualmin-chruby-passenger-installer
+dev-deb
 ================================
 
 get install.sh
