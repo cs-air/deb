@@ -25,9 +25,8 @@ dpkg-reconfigure tzdata
 #vim /etc/apt/sources.list
 ```
 
-vpn shell
-
-```
+vpn
+```shell
 cat /dev/ppp
 wget https://raw.github.com/cwaffles/ezpptp/master/ezpptp.sh && sh ezpptp.sh
 ```
@@ -64,9 +63,3 @@ EOF
 sed -i '/.*shift/ i\
 echo "$1" > ~/.ruby-version' /usr/local/share/chruby/chruby.sh
 ```
-
-ruby
-```ruby
-puts "hello"
-```
-
