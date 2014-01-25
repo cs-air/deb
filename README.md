@@ -76,3 +76,23 @@ config
 ```bash
 mkdir /opt/skel && cp -r /etc/skel /opt/skel/default
 ```
+```bash
+   LoadModule passenger_module /var/lib/gems/1.9.1/gems/passenger-4.0.36/buildout/apache2/mod_passenger.so
+   <IfModule mod_passenger.c>
+     PassengerRoot /var/lib/gems/1.9.1/gems/passenger-4.0.36
+     PassengerDefaultRuby /usr/bin/ruby1.9.1
+   </IfModule>
+
+   <VirtualHost *:80>
+      ServerName www.yourhost.com
+      # !!! Be sure to point DocumentRoot to 'public'!
+      DocumentRoot /somewhere/public
+      <Directory /somewhere/public>
+         # This relaxes Apache security settings.
+         AllowOverride all
+         # MultiViews must be turned off.
+         Options -MultiViews
+      </Directory>
+   </VirtualHost>
+
+```
