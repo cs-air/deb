@@ -12,7 +12,9 @@ tar -xzvf ruby-install-0.3.4.tar.gz
 cd ruby-install-0.3.4/
 sudo make install
 cd ~
- 
+
+ruby-install ruby-2.1.0
+
 cat <<EOF > /etc/profile.d/chruby.sh
 [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ] || return
  
