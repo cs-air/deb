@@ -31,3 +31,9 @@ hostname -f
 cat /etc/debian_version
 cat /etc/cpuinfo
 ```
+
+vpn
+
+```
+wget https://raw.github.com/cwaffles/ezpptp/master/ezpptp.sh | bash
+```
