@@ -9,10 +9,16 @@ sh install.sh
 rm install.sh
 ```
 
-adjust TimeZone
+Adjust TimeZone:
 
 ```
 dpkg-reconfigure tzdata
+```
+
+Fix:
+
+```
+apt-get install dialog
 ```
 
 vps testing
