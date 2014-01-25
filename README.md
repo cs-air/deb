@@ -10,7 +10,10 @@ rm install.sh
 ```
 
 adjust TimeZone
-`dpkg-reconfigure tzdata`
+
+```
+dpkg-reconfigure tzdata
+```
 
 vps testing
 
