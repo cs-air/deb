@@ -2,8 +2,7 @@ dev-deb
 ================================
 
 vps testing
-
-```
+```bash
 wget freevps.us/downloads/bench.sh -O - -o /dev/null|bash
 df -h
 free -m
@@ -15,8 +14,7 @@ cat /proc/cpuinfo
 ```
 
 fix & update:
-
-```
+```bash
 apt-get update
 apt-get install dialog
 #dpkg-reconfigure debconf
@@ -26,14 +24,13 @@ dpkg-reconfigure tzdata
 ```
 
 vpn
-```shell
+```bash
 cat /dev/ppp
 wget https://raw.github.com/cwaffles/ezpptp/master/ezpptp.sh && sh ezpptp.sh
 ```
 
 get install.sh
-
-```
+```bash
 wget https://raw.github.com/devotg/virtualmin-chruby-passenger-installer/master/install.sh
 sh install.sh
 rm install.sh
