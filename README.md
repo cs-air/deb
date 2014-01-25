@@ -9,6 +9,9 @@ sh install.sh
 rm install.sh
 ```
 
+adjust TimeZone
+`dpkg-reconfigure tzdata`
+
 vps testing
 
 ```
