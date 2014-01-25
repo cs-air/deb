@@ -1,14 +1,6 @@
 dev-deb
 ================================
 
-get install.sh
-
-```
-wget https://raw.github.com/devotg/virtualmin-chruby-passenger-installer/master/install.sh
-sh install.sh
-rm install.sh
-```
-
 Fix & Update:
 
 ```
@@ -36,4 +28,12 @@ vpn
 
 ```
 wget https://raw.github.com/cwaffles/ezpptp/master/ezpptp.sh & sh ezpptp.sh
+```
+
+get install.sh
+
+```
+wget https://raw.github.com/devotg/virtualmin-chruby-passenger-installer/master/install.sh
+sh install.sh
+rm install.sh
 ```
