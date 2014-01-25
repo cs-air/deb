@@ -29,11 +29,11 @@ dd if=/dev/zero of=test bs=64k count=16k conv=fdatasync
 
 hostname -f
 cat /etc/debian_version
-cat /etc/cpuinfo
+cat /proc/cpuinfo
 ```
 
 vpn
 
 ```
-wget https://raw.github.com/cwaffles/ezpptp/master/ezpptp.sh | bash
+wget https://raw.github.com/cwaffles/ezpptp/master/ezpptp.sh -O /dev/null | bash
 ```
