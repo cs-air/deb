@@ -1,17 +1,10 @@
-cd ~
-wget -O virtualmin-install.sh http://software.virtualmin.com/gpl/scripts/install.sh && sh virtualmin-install.sh
+cd ~ && wget -O virtualmin-install.sh http://software.virtualmin.com/gpl/scripts/install.sh && sh virtualmin-install.sh
  
-wget -O chruby-0.3.8.tar.gz https://github.com/postmodern/chruby/archive/v0.3.8.tar.gz
-tar -xzvf chruby-0.3.8.tar.gz
-cd chruby-0.3.8/
-sudo make install
-cd ~
+wget -O chruby-0.3.8.tar.gz https://github.com/postmodern/chruby/archive/v0.3.8.tar.gz && tar -xzvf chruby-0.3.8.tar.gz
+cd chruby-0.3.8/ && sudo make install && cd ~
 
-wget -O ruby-install-0.3.4.tar.gz https://github.com/postmodern/ruby-install/archive/v0.3.4.tar.gz
-tar -xzvf ruby-install-0.3.4.tar.gz
-cd ruby-install-0.3.4/
-sudo make install
-cd ~
+wget -O ruby-install-0.3.4.tar.gz https://github.com/postmodern/ruby-install/archive/v0.3.4.tar.gz && tar -xzvf ruby-install-0.3.4.tar.gz
+cd ruby-install-0.3.4/ && sudo make install && cd ~
 
 ruby-install ruby-2.1.0
 
