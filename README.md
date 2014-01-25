@@ -69,7 +69,7 @@ cd ~
 chruby ruby
 gem update --system
 gem install passenger
-passenger-install-apache2-module -a -
+passenger-install-apache2-module -a --languages 'ruby,python,nodejs,meteor'
 ```
 
 config
