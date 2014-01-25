@@ -1,16 +1,6 @@
 dev-deb
 ================================
 
-Fix & Update:
-
-```
-dpkg-reconfigure tzdata
-apt-get update
-apt-get install dialog
-#dpkg-reconfigure debconf
-apt-get dist-upgrate
-```
-
 vps testing
 
 ```
@@ -22,6 +12,16 @@ dd if=/dev/zero of=test bs=64k count=16k conv=fdatasync
 hostname -f
 cat /etc/debian_version
 cat /proc/cpuinfo
+```
+
+fix & update:
+
+```
+dpkg-reconfigure tzdata
+apt-get update
+apt-get install dialog
+#dpkg-reconfigure debconf
+apt-get dist-upgrate
 ```
 
 vpn
