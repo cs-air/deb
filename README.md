@@ -17,11 +17,12 @@ cat /proc/cpuinfo
 fix & update:
 
 ```
-dpkg-reconfigure tzdata
 apt-get update
 apt-get install dialog
 #dpkg-reconfigure debconf
-apt-get dist-upgrate
+apt-get dist-upgrade
+dpkg-reconfigure tzdata
+#vim /etc/apt/sources.list
 ```
 
 vpn
