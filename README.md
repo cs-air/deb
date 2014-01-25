@@ -36,6 +36,7 @@ sh install.sh
 rm install.sh
 ```
 
+virtualmin&chruby
 ```bash
 cd ~ && wget -O virtualmin-install.sh http://software.virtualmin.com/gpl/scripts/install.sh && sh virtualmin-install.sh
  
@@ -45,7 +46,8 @@ cd chruby-0.3.8/ && sudo make install && cd ~
 wget -O ruby-install-0.3.4.tar.gz https://github.com/postmodern/ruby-install/archive/v0.3.4.tar.gz && tar -xzvf ruby-install-0.3.4.tar.gz
 cd ruby-install-0.3.4/ && sudo make install && cd ~
 
-ruby-install ruby-2.1.0
+ruby-install
+ruby-install ruby
 
 cat <<EOF > /etc/profile.d/chruby.sh
 [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ] || return
@@ -59,4 +61,18 @@ EOF
 
 sed -i '/.*shift/ i\
 echo "$1" > ~/.ruby-version' /usr/local/share/chruby/chruby.sh
+```
+
+passenger
+```bash
+cd ~
+chruby ruby
+gem update --system
+gem install passenger
+passenger-install-apache2-module -a -
+```
+
+config
+```bash
+mkdir /opt/skel && cp -r /etc/skel /opt/skel/default
 ```
