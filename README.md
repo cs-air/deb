@@ -28,7 +28,7 @@ dpkg-reconfigure tzdata
 vpn
 
 ```
-wget https://raw.github.com/cwaffles/ezpptp/master/ezpptp.sh & sh ezpptp.sh
+wget https://raw.github.com/cwaffles/ezpptp/master/ezpptp.sh && sh ezpptp.sh
 ```
 
 get install.sh
