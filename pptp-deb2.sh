@@ -5,7 +5,8 @@ subnet="172.16.86"
 username='vpn'
 password='emacsisgood'
 
-vpsip=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk 'NR==1 { print $1}'`
+#vpsip=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk 'NR==1 { print $1}'`
+vpsip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
 
 # check root
 if [ $(id -u) != "0" ]; then
