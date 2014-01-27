@@ -35,33 +35,32 @@ echo
 echo "######################################################"
 echo "Downloading and Installing PoPToP"
 echo "######################################################"
+# install
 apt-get update
-apt-get -y install pptpd
+apt-get --purge -y remove pptpd ppp
+rm -rf /etc/pptpd.conf
+rm -rf /etc/ppp
+apt-get install -y ppp pptpd
+#apt-get install -y iptables logrotate tar cpio perl
+
+# config
+rm -r /dev/ppp
+mknod /dev/ppp c 108 0
 
 echo
 echo "######################################################"
 echo "Creating Server Config"
 echo "######################################################"
 cat > /etc/ppp/pptpd-options <<END
-name pptpd
-refuse-pap
-refuse-chap
-refuse-mschap
-require-mschap-v2
-require-mppe-128
 ms-dns 8.8.8.8
 ms-dns 8.8.4.4
-proxyarp
-nodefaultroute
-lock
-nobsdcomp
 END
 
 # setting up pptpd.conf
 echo "option /etc/ppp/pptpd-options" > /etc/pptpd.conf
 echo "logwtmp" >> /etc/pptpd.conf
-echo "localip $ip" >> /etc/pptpd.conf
-echo "remoteip 10.1.0.1-100" >> /etc/pptpd.conf
+echo "localip 10.10.10.10" >> /etc/pptpd.conf
+echo "remoteip 10.10.10.11-15" >> /etc/pptpd.conf
 
 # adding new user
 echo "$u	*	$p	*" >> /etc/ppp/chap-secrets
