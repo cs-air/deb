@@ -16,9 +16,11 @@ cat /proc/cpuinfo
 fix & update:
 ```bash
 apt-get update
-apt-get install dialog
+#apt-get install dialog
 #dpkg-reconfigure debconf
 apt-get dist-upgrade
+apt-get autoremove
+apt-get clean
 dpkg-reconfigure tzdata
 #vim /etc/apt/sources.list
 ```
@@ -26,6 +28,7 @@ dpkg-reconfigure tzdata
 vpn
 ```bash
 cat /dev/ppp
+cat /dev/tun
 wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh
 ```
 
