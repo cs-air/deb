@@ -1,57 +1,30 @@
 #!/bin/bash
-# Interactive PoPToP install script for an OpenVZ VPS
-# Tested on Debian 5, 6, and Ubuntu 11.04
-# April 2, 2013 v1.11
-# http://www.putdispenserhere.com/pptp-debian-ubuntu-openvz-setup-script/
+#cat /dev/ppp
+#cat /dev/tun
+echo "
+PPTP install script for an OpenVZ VPS, Tested on Debian 7
+wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh  && rm pptp.sh
+"
 
 echo "######################################################"
-echo "Interactive PoPToP Install Script for an OpenVZ VPS"
-echo
-echo "Make sure to contact your provider and have them enable"
-echo "IPtables and ppp modules prior to setting up PoPToP."
-echo "PPP can also be enabled from SolusVM."
-echo
-echo "You need to set up the server before creating more users."
-echo "A separate user is required per connection or machine."
-echo "######################################################"
-echo
-echo
-echo "######################################################"
-echo "Select on option:"
-echo "1) Set up new PoPToP server AND create one user"
-echo "2) Create additional users"
-echo "######################################################"
-read x
-if test $x -eq 1; then
-	echo "Enter username that you want to create (eg. client1 or john):"
-	read u
-	echo "Specify password that you want the server to use:"
-	read p
+echo "Enter username:" && read u
+echo "Enter password:" && read p
 
-# get the VPS IP
+# get IP
 ip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
 
-echo
-echo "######################################################"
-echo "Downloading and Installing PoPToP"
-echo "######################################################"
 # install
 apt-get update
-apt-get --purge -y remove pptpd ppp
+apt-get purge pptpd ppp bcrelay -y
 rm -rf /etc/pptpd.conf
 rm -rf /etc/ppp
-apt-get install -y ppp pptpd
+apt-get install pptpd -y
 #apt-get install -y iptables logrotate tar cpio perl
 
 # config
 rm -r /dev/ppp
 mknod /dev/ppp c 108 0
-
-echo
-echo "######################################################"
-echo "Creating Server Config"
-echo "######################################################"
-cat > /etc/ppp/pptpd-options <<END
+cat >> /etc/ppp/pptpd-options <<END
 ms-dns 8.8.8.8
 ms-dns 8.8.4.4
 END
@@ -92,41 +65,13 @@ cat >> /etc/ppp/ip-up <<END
 ifconfig ppp0 mtu 1400
 END
 
-echo
-echo "######################################################"
-echo "Restarting PoPToP"
-echo "######################################################"
+echo "Restarting PoPToP ####################################"
 sleep 5
 /etc/init.d/pptpd restart
 
 echo
 echo "######################################################"
-echo "Server setup complete!"
+echo "PPTP setup complete!"
 echo "Connect to your VPS at $ip with these credentials:"
 echo "Username:$u ##### Password: $p"
 echo "######################################################"
-
-# runs this if option 2 is selected
-elif test $x -eq 2; then
-	echo "Enter username that you want to create (eg. client1 or john):"
-	read u
-	echo "Specify password that you want the server to use:"
-	read p
-
-# get the VPS IP
-ip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
-
-# adding new user
-echo "$u	*	$p	*" >> /etc/ppp/chap-secrets
-
-echo
-echo "######################################################"
-echo "Addtional user added!"
-echo "Connect to your VPS at $ip with these credentials:"
-echo "Username:$u ##### Password: $p"
-echo "######################################################"
-
-else
-echo "Invalid selection, quitting."
-exit
-fi
