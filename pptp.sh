@@ -22,8 +22,8 @@ apt-get install pptpd -y
 #apt-get install -y iptables logrotate tar cpio perl
 
 # config
-rm -r /dev/ppp
-mknod /dev/ppp c 108 0
+#rm -r /dev/ppp
+#mknod /dev/ppp c 108 0
 
 cat >> /etc/pptpd.conf <<END
 localip 10.10.10.10
@@ -42,12 +42,12 @@ cat >> /etc/ppp/chap-secrets <<END
 $u  * $p  *
 END
 
-cat > /etc/sysctl.d/pptpd.conf <<END
+cat > /etc/sysctl.d/pptpd <<END
 net.ipv4.ip_forward=1
 END
 sysctl -p
 
-iptables -t nat -A POSTROUTING -j SNAT --to $ip
+iptables -t nat -A POSTROUTING -j SNAT –to-source $ip
 iptables-save > /etc/iptables.conf
 
 cat > /etc/network/if-pre-up.d/iptables <<END
