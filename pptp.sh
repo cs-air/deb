@@ -45,7 +45,7 @@ mru 1490
 END
 
 cat >> /etc/ppp/chap-secrets <<END
-$u  * $p  *
+$u * $p *
 END
 
 cat > /etc/sysctl.d/pptpd <<END
