@@ -27,6 +27,9 @@ apt-get install pptpd -y
 # config
 #rm -r /dev/ppp
 #mknod /dev/ppp c 108 0
+#echo 1 > /proc/sys/net/ipv4/ip_forward 
+#echo "mknod /dev/ppp c 108 0" >> /etc/rc.local
+#echo "echo 1 > /proc/sys/net/ipv4/ip_forward" >> /etc/rc.local
 
 cat >> /etc/pptpd.conf <<END
 localip 10.10.10.10
