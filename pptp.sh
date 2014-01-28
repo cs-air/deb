@@ -24,48 +24,38 @@ apt-get install pptpd -y
 # config
 rm -r /dev/ppp
 mknod /dev/ppp c 108 0
+
+cat >> /etc/pptpd.conf <<END
+localip 10.10.10.10
+remoteip 10.10.10.11-15
+END
+
 cat >> /etc/ppp/pptpd-options <<END
 ms-dns 8.8.8.8
 ms-dns 8.8.4.4
 END
 
-# setting up pptpd.conf
-echo "option /etc/ppp/pptpd-options" > /etc/pptpd.conf
-echo "logwtmp" >> /etc/pptpd.conf
-echo "localip 10.10.10.10" >> /etc/pptpd.conf
-echo "remoteip 10.10.10.11-15" >> /etc/pptpd.conf
+cat >> /etc/ppp/chap-secrets <<END
+$u  ppptd * $p  *
+END
 
-# adding new user
-echo "$u	*	$p	*" >> /etc/ppp/chap-secrets
-
-echo
-echo "######################################################"
-echo "Forwarding IPv4 and Enabling it on boot"
-echo "######################################################"
 cat >> /etc/sysctl.conf <<END
 net.ipv4.ip_forward=1
 END
 sysctl -p
 
-echo
-echo "######################################################"
-echo "Updating IPtables Routing and Enabling it on boot"
-echo "######################################################"
 iptables -t nat -A POSTROUTING -j SNAT --to $ip
-# saves iptables routing rules and enables them on-boot
 iptables-save > /etc/iptables.conf
 
 cat > /etc/network/if-pre-up.d/iptables <<END
 #!/bin/sh
 iptables-restore < /etc/iptables.conf
 END
-
 chmod +x /etc/network/if-pre-up.d/iptables
 cat >> /etc/ppp/ip-up <<END
 ifconfig ppp0 mtu 1400
 END
 
-echo "Restarting PoPToP ####################################"
 sleep 5
 /etc/init.d/pptpd restart
 
