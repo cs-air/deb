@@ -18,6 +18,9 @@ apt-get update
 apt-get purge pptpd ppp bcrelay -y
 rm -rf /etc/pptpd.conf
 rm -rf /etc/ppp
+rm -rf /etc/sysctl.d/pptpd
+rm -rf /etc/iptables.conf
+rm -rf /etc/network/if-pre-up.d/iptables
 apt-get install pptpd -y
 #apt-get install -y iptables logrotate tar cpio perl
 
@@ -47,7 +50,7 @@ net.ipv4.ip_forward=1
 END
 sysctl -p
 
-iptables -t nat -A POSTROUTING -j SNAT –to-source $ip
+iptables -t nat -A POSTROUTING -j SNAT --to-source $ip
 iptables-save > /etc/iptables.conf
 
 cat > /etc/network/if-pre-up.d/iptables <<END
