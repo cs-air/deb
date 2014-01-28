@@ -3,7 +3,7 @@
 #cat /dev/tun
 echo "
 PPTP install script for an OpenVZ VPS, Tested on Debian 7
-wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh  && rm pptp.sh
+rm -f pptp.sh && wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh  && rm -f pptp.sh
 "
 
 echo "######################################################"
@@ -33,13 +33,16 @@ END
 cat >> /etc/ppp/pptpd-options <<END
 ms-dns 8.8.8.8
 ms-dns 8.8.4.4
+noipx
+mtu 1490
+mru 1490
 END
 
 cat >> /etc/ppp/chap-secrets <<END
-$u  ppptd * $p  *
+$u  * $p  *
 END
 
-cat >> /etc/sysctl.conf <<END
+cat > /etc/sysctl.d/pptpd.conf <<END
 net.ipv4.ip_forward=1
 END
 sysctl -p
@@ -52,8 +55,8 @@ cat > /etc/network/if-pre-up.d/iptables <<END
 iptables-restore < /etc/iptables.conf
 END
 chmod +x /etc/network/if-pre-up.d/iptables
-cat >> /etc/ppp/ip-up <<END
-ifconfig ppp0 mtu 1400
+cat > /etc/ppp/ip-up.d/pptpd <<END
+ifconfig $1 mtu 1490
 END
 
 sleep 5
