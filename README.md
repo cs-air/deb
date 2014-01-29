@@ -33,20 +33,23 @@ wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh && rm -f
 ```
 
 
-virtualmin&chruby
+virtualmin
 ```bash
-cd ~ && wget -O virtualmin-install.sh http://software.virtualmin.com/gpl/scripts/install.sh && sh virtualmin-install.sh
- 
-wget -O chruby-0.3.8.tar.gz https://github.com/postmodern/chruby/archive/v0.3.8.tar.gz && tar -xzvf chruby-0.3.8.tar.gz
-cd chruby-0.3.8/ && sudo make install && cd ~
+wget -O virtualmin.sh http://software.virtualmin.com/gpl/scripts/install.sh && sh virtualmin.sh
+```
 
-wget -O ruby-install-0.3.4.tar.gz https://github.com/postmodern/ruby-install/archive/v0.3.4.tar.gz && tar -xzvf ruby-install-0.3.4.tar.gz
-cd ruby-install-0.3.4/ && sudo make install && cd ~
+chruby
+```bash
+wget -O chruby-0.3.8.tar.gz https://github.com/postmodern/chruby/archive/v0.3.8.tar.gz
+tar -xzvf chruby-0.3.8.tar.gz && cd chruby-0.3.8/ && sudo make install && cd ~
+
+wget -O ruby-install-0.3.4.tar.gz https://github.com/postmodern/ruby-install/archive/v0.3.4.tar.gz
+tar -xzvf ruby-install-0.3.4.tar.gz && cd ruby-install-0.3.4/ && sudo make install && cd ~
 
 ruby-install
 ruby-install ruby
 
-cat <<EOF > /etc/profile.d/chruby.sh
+cat > /etc/profile.d/chruby.sh <<EOF
 [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ] || return
  
 source /usr/local/share/chruby/chruby.sh
@@ -58,14 +61,13 @@ EOF
 
 sed -i '/.*shift/ i\
 echo "$1" > ~/.ruby-version' /usr/local/share/chruby/chruby.sh
+
+#wget -O /usr/local/share/chruby/chruby.sh https://raw2.github.com/postmodern/chruby/master/share/chruby/chruby.sh
 ```
 
 passenger
 ```bash
-cd ~
-chruby ruby
-gem update --system
-gem install passenger
+chruby ruby && gem update --system && gem install passenger
 passenger-install-apache2-module -a --languages 'ruby,python,nodejs,meteor'
 ```
 
@@ -73,6 +75,7 @@ config
 ```bash
 mkdir /opt/skel && cp -r /etc/skel /opt/skel/default
 ```
+
 ```bash
    LoadModule passenger_module /var/lib/gems/1.9.1/gems/passenger-4.0.36/buildout/apache2/mod_passenger.so
    <IfModule mod_passenger.c>
