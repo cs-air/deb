@@ -18,11 +18,18 @@ fix & update:
 apt-get update
 #apt-get install dialog
 #dpkg-reconfigure debconf
+apt-get upgrade
+cat >> /etc/apt/preferences <<END
+Package: sysvinit
+Pin: release c=main
+Pin-Priority: -1
+END
 apt-get dist-upgrade
 apt-get autoremove
 apt-get clean
 dpkg-reconfigure tzdata
 #vim /etc/apt/sources.list
+wget -O ~/.vimrc https://raw.github.com/devotg/dev-deb/master/.vimrc
 ```
 
 vpn
