@@ -6,7 +6,7 @@ vps testing
 wget freevps.us/downloads/bench.sh -O - -o /dev/null|bash
 df -h
 free -m
-dd if=/dev/zero of=test bs=64k count=16k conv=fdatasync
+dd if=/dev/zero of=test bs=64k count=16k conv=fdatasync && rm -f test
 
 hostname -f
 cat /etc/debian_version
@@ -29,15 +29,9 @@ vpn
 ```bash
 cat /dev/ppp
 cat /dev/tun
-wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh
+wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh && rm -f pptp.sh
 ```
 
-get install.sh
-```bash
-wget https://raw.github.com/devotg/virtualmin-chruby-passenger-installer/master/install.sh
-sh install.sh
-rm install.sh
-```
 
 virtualmin&chruby
 ```bash
