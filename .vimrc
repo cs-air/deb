@@ -1,3 +1,4 @@
+"wget -O ~/.vimrc https://raw.github.com/devotg/dev-deb/master/.vimrc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: 
 "       Amir Salihefendic
