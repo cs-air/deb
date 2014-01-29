@@ -54,6 +54,7 @@ END
 sysctl -p
 
 iptables -t nat -A POSTROUTING -j SNAT --to-source $ip
+#iptables -t nat -A POSTROUTING -j SNAT --to $ip
 iptables-save > /etc/iptables.conf
 
 cat > /etc/network/if-pre-up.d/iptables <<END
