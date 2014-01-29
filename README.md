@@ -84,9 +84,9 @@ mkdir /opt/skel && cp -r /etc/skel /opt/skel/default
 ```
 
 ```bash
-   LoadModule passenger_module /var/lib/gems/1.9.1/gems/passenger-4.0.36/buildout/apache2/mod_passenger.so
+   LoadModule passenger_module /var/lib/gems/1.9.1/gems/passenger-4.0.37/buildout/apache2/mod_passenger.so
    <IfModule mod_passenger.c>
-     PassengerRoot /var/lib/gems/1.9.1/gems/passenger-4.0.36
+     PassengerRoot /var/lib/gems/1.9.1/gems/passenger-4.0.37
      PassengerDefaultRuby /usr/bin/ruby1.9.1
    </IfModule>
 
