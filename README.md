@@ -16,7 +16,7 @@ cat /proc/cpuinfo
 fix & update:
 ```bash
 #vim /etc/apt/sources.list
-wget -O /etc/apt/sources.list https://raw.github.com/devotg/dev-deb/master/sources.list --no-check-certificate
+wget -O /etc/apt/sources.list https://raw.github.com/devotg/dev-deb/master/sources.list
 apt-get update
 #apt-get install dialog
 #dpkg-reconfigure debconf
