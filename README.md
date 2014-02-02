@@ -48,10 +48,10 @@ wget -O virtualmin.sh http://software.virtualmin.com/gpl/scripts/install.sh && s
 
 chruby
 ```bash
-wget -O chruby-0.3.8.tar.gz https://github.com/postmodern/chruby/archive/v0.3.8.tar.gz --no-check-certificate
+wget -O chruby-0.3.8.tar.gz https://github.com/postmodern/chruby/archive/v0.3.8.tar.gz
 tar -xzvf chruby-0.3.8.tar.gz && cd chruby-0.3.8/ && sudo make install && cd ~
 
-wget -O ruby-install-0.3.4.tar.gz https://github.com/postmodern/ruby-install/archive/v0.3.4.tar.gz --no-check-certificate
+wget -O ruby-install-0.3.4.tar.gz https://github.com/postmodern/ruby-install/archive/v0.3.4.tar.gz
 tar -xzvf ruby-install-0.3.4.tar.gz && cd ruby-install-0.3.4/ && sudo make install && cd ~
 
 ruby-install
@@ -70,7 +70,7 @@ EOF
 sed -i '/.*shift/ i\
 echo "$1" > ~/.ruby-version' /usr/local/share/chruby/chruby.sh
 
-#wget -O /usr/local/share/chruby/chruby.sh https://raw2.github.com/postmodern/chruby/master/share/chruby/chruby.sh --no-check-certificate
+#wget -O /usr/local/share/chruby/chruby.sh https://raw2.github.com/postmodern/chruby/master/share/chruby/chruby.sh
 ```
 
 passenger
