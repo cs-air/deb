@@ -15,6 +15,8 @@ cat /proc/cpuinfo
 
 fix & update:
 ```bash
+#vim /etc/apt/sources.list
+wget -O /etc/apt/sources.list https://raw.github.com/devotg/dev-deb/master/sources.list
 apt-get update
 #apt-get install dialog
 #dpkg-reconfigure debconf
@@ -28,7 +30,6 @@ apt-get dist-upgrade
 apt-get autoremove
 apt-get clean
 dpkg-reconfigure tzdata
-#vim /etc/apt/sources.list
 wget -O ~/.vimrc https://raw.github.com/devotg/dev-deb/master/.vimrc
 ```
 
@@ -36,7 +37,7 @@ vpn
 ```bash
 cat /dev/ppp
 cat /dev/tun
-wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh && rm -f pptp.sh
+wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh
 ```
 
 
