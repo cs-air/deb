@@ -3,7 +3,7 @@
 #cat /dev/tun
 echo "
 PPTP install script for an OpenVZ VPS, Tested on Debian 7
-wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh  && rm -f pptp.sh
+wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh
 "
 
 echo "######################################################"
