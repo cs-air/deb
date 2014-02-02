@@ -16,7 +16,7 @@ cat /proc/cpuinfo
 fix & update:
 ```bash
 #vim /etc/apt/sources.list
-wget -O /etc/apt/sources.list https://raw.github.com/devotg/dev-deb/master/sources.list
+wget -O /etc/apt/sources.list https://raw.github.com/devotg/dev-deb/master/sources.list --no-check-certificate
 apt-get update
 #apt-get install dialog
 #dpkg-reconfigure debconf
@@ -30,14 +30,14 @@ apt-get dist-upgrade
 apt-get autoremove
 apt-get clean
 dpkg-reconfigure tzdata
-wget -O ~/.vimrc https://raw.github.com/devotg/dev-deb/master/.vimrc
+wget -O ~/.vimrc https://raw.github.com/devotg/dev-deb/master/.vimrc --no-check-certificate
 ```
 
 vpn
 ```bash
 cat /dev/ppp
 cat /dev/tun
-wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh
+wget https://raw.github.com/devotg/dev-deb/master/pptp.sh --no-check-certificate && sh pptp.sh
 ```
 
 
@@ -48,10 +48,10 @@ wget -O virtualmin.sh http://software.virtualmin.com/gpl/scripts/install.sh && s
 
 chruby
 ```bash
-wget -O chruby-0.3.8.tar.gz https://github.com/postmodern/chruby/archive/v0.3.8.tar.gz
+wget -O chruby-0.3.8.tar.gz https://github.com/postmodern/chruby/archive/v0.3.8.tar.gz --no-check-certificate
 tar -xzvf chruby-0.3.8.tar.gz && cd chruby-0.3.8/ && sudo make install && cd ~
 
-wget -O ruby-install-0.3.4.tar.gz https://github.com/postmodern/ruby-install/archive/v0.3.4.tar.gz
+wget -O ruby-install-0.3.4.tar.gz https://github.com/postmodern/ruby-install/archive/v0.3.4.tar.gz --no-check-certificate
 tar -xzvf ruby-install-0.3.4.tar.gz && cd ruby-install-0.3.4/ && sudo make install && cd ~
 
 ruby-install
@@ -70,7 +70,7 @@ EOF
 sed -i '/.*shift/ i\
 echo "$1" > ~/.ruby-version' /usr/local/share/chruby/chruby.sh
 
-#wget -O /usr/local/share/chruby/chruby.sh https://raw2.github.com/postmodern/chruby/master/share/chruby/chruby.sh
+#wget -O /usr/local/share/chruby/chruby.sh https://raw2.github.com/postmodern/chruby/master/share/chruby/chruby.sh --no-check-certificate
 ```
 
 passenger
