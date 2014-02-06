@@ -1,3 +1,9 @@
+   LoadModule passenger_module /opt/rubies/ruby-2.1.0/lib/ruby/gems/2.1.0/gems/passenger-4.0.37/buildout/apache2/mod_passenger.so
+   <IfModule mod_passenger.c>
+     PassengerRoot /opt/rubies/ruby-2.1.0/lib/ruby/gems/2.1.0/gems/passenger-4.0.37
+     PassengerDefaultRuby /opt/rubies/ruby-2.1.0/bin/ruby
+   </IfModule>
+
    LoadModule passenger_module /var/lib/gems/1.9.1/gems/passenger-4.0.37/buildout/apache2/mod_passenger.so
    <IfModule mod_passenger.c>
      PassengerRoot /var/lib/gems/1.9.1/gems/passenger-4.0.37
