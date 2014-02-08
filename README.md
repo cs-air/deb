@@ -38,6 +38,7 @@ vpn
 cat /dev/ppp
 cat /dev/tun
 wget https://raw.github.com/devotg/dev-deb/master/pptp.sh --no-check-certificate && sh pptp.sh
+wget https://raw.github.com/devotg/dev-deb/master/pptp2.sh --no-check-certificate && sh pptp2.sh
 ```
 
 
