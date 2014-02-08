@@ -1,8 +1,8 @@
 #!/bin/bash
-#cat /dev/ppp
-#cat /dev/tun
 echo "
 PPTP install script for an OpenVZ VPS, Tested on Debian 7
+cat /dev/ppp
+cat /dev/tun
 wget https://raw.github.com/devotg/dev-deb/master/pptp-mini.sh && sh pptp-mini.sh
 "
 
