@@ -1,11 +1,10 @@
 #!/bin/bash
-#cat /dev/ppp
-#cat /dev/tun
 echo "
 PPTP install script for an OpenVZ VPS, Tested on Debian 7
+cat /dev/ppp
+cat /dev/tun
 wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh
 "
-
 echo "######################################################"
 echo "Enter username:" && read u
 echo "Enter password:" && read p
