@@ -11,6 +11,8 @@ dd if=/dev/zero of=test bs=64k count=16k conv=fdatasync && rm -f test
 hostname -f
 cat /etc/debian_version
 cat /proc/cpuinfo
+cat /etc/hosts
+ifconfig
 ```
 
 fix & update:
