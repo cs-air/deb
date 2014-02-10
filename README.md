@@ -13,6 +13,7 @@ cat /etc/debian_version
 cat /proc/cpuinfo
 cat /etc/hosts
 ifconfig
+iptables -L
 ```
 
 fix & update:
