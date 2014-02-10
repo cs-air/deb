@@ -40,7 +40,7 @@ vpn
 ```bash
 cat /dev/ppp
 cat /dev/tun
-wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh
+wget https://raw.github.com/devotg/dev-deb/master/pptp.sh --no-check-certificate && sh pptp.sh
 wget https://raw.github.com/devotg/dev-deb/master/pptpd.sh && sh pptpd.sh
 ```
 
