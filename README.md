@@ -19,7 +19,7 @@ iptables -L
 fix & update:
 ```bash
 #vim /etc/apt/sources.list
-wget -O /etc/apt/sources.list https://raw.github.com/devotg/dev-deb/master/sources.list --no-check-certificate
+wget -O /etc/apt/sources.list https://raw.github.com/devotg/dev-deb/master/sources.list
 apt-get update
 #apt-get install dialog
 #dpkg-reconfigure debconf
@@ -33,14 +33,14 @@ apt-get dist-upgrade
 apt-get autoremove
 apt-get clean
 dpkg-reconfigure tzdata
-wget -O ~/.vimrc https://raw.github.com/devotg/dev-deb/master/.vimrc --no-check-certificate
+wget -O ~/.vimrc https://raw.github.com/devotg/dev-deb/master/.vimrc
 ```
 
 vpn
 ```bash
 cat /dev/ppp
 cat /dev/tun
-wget https://raw.github.com/devotg/dev-deb/master/pptp.sh --no-check-certificate && sh pptp.sh
+wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh
 wget https://raw.github.com/devotg/dev-deb/master/pptpd.sh && sh pptpd.sh
 ```
 
