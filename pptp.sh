@@ -15,13 +15,13 @@ ip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
 
 # install
 apt-get update
-apt-get purge pptpd ppp bcrelay -y
+apt-get purge pptpd ppp bcrelay
 rm -rf /etc/pptpd.conf
 rm -rf /etc/ppp
 rm -rf /etc/sysctl.d/pptpd
 rm -rf /etc/iptables.conf
 rm -rf /etc/network/if-pre-up.d/iptables
-apt-get install pptpd -y
+apt-get install pptpd
 #apt-get install -y iptables logrotate tar cpio perl
 
 # config
