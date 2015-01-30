@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-#
+#wget https://raw.github.com/devotg/dev-deb/master/linode.sh && sh linode.sh
 # drewsymo/VPN
 #
 # Installs a PPTP VPN-only system for CentOS
