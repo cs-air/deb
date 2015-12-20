@@ -2,7 +2,7 @@
 echo "
 cat /dev/ppp
 cat /dev/tun
-wget https://raw.github.com/devotg/dev-deb/master/pptp.sh && sh pptp.sh
+wget https://raw.github.com/cscode/deb/master/pptp.sh && sh pptp.sh
 "
 
 echo "######################################################"
@@ -14,25 +14,25 @@ ip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
 
 # install
 apt-get update
-apt-get purge pptpd ppp bcrelay
-rm -rf /etc/pptpd.conf
-rm -rf /etc/ppp
-rm -rf /etc/sysctl.d/pptpd
-rm -rf /etc/iptables.conf
-rm -rf /etc/network/if-pre-up.d/iptables
+#apt-get purge pptpd ppp bcrelay
+#rm -rf /etc/pptpd.conf
+#rm -rf /etc/ppp
+#rm -rf /etc/sysctl.d/pptpd
+#rm -rf /etc/iptables.conf
+#rm -rf /etc/network/if-pre-up.d/iptables
 apt-get install pptpd
 #apt-get install -y iptables logrotate tar cpio perl
 
 # config
-rm -rf /dev/ppp
-mknod /dev/ppp c 108 0
+#rm -rf /dev/ppp
+#mknod /dev/ppp c 108 0
 #echo 1 > /proc/sys/net/ipv4/ip_forward 
 #echo "mknod /dev/ppp c 108 0" >> /etc/rc.local
 #echo "echo 1 > /proc/sys/net/ipv4/ip_forward" >> /etc/rc.local
 
 cat >> /etc/pptpd.conf <<END
-localip 10.10.10.10
-remoteip 10.10.10.11-15
+localip 10.10.10.1
+remoteip 10.10.10.11-20
 END
 
 cat >> /etc/ppp/pptpd-options <<END
