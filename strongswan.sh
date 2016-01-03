@@ -53,25 +53,16 @@ if [ -s /etc/selinux/config ] && grep 'SELINUX=enforcing' /etc/selinux/config; t
 fi
 }
 
-# Get IP address of the server
 function get_ip(){
-    echo "Preparing, Please wait a moment..."
-    IP=`curl -s checkip.dyndns.com | cut -d' ' -f 6  | cut -d'<' -f 1`
-    if [ -z $IP ]; then
-        IP=`curl -s ifconfig.me/ip`
-    fi
+	echo "Get IP address of the server"
+	IP=`ifconfig | grep 'inet addr:'| grep -v '127.0.0.*' | cut -d: -f2 | awk '{ print $1}' | head -1`;
+	echo "My IP is $IP"
 }
 
-# Pre-installation settings
 function pre_install(){
 	echo "#############################################################"
-	echo "# Install IKEV2 VPN for CentOS6.x (32bit/64bit) or Ubuntu"
-	echo "# Intro: http://quericy.me/blog/699"
-	echo "#"
-	echo "# Author:quericy"
-	echo "#"
+	echo "# Installing..."
 	echo "#############################################################"
-	echo ""
     echo "please choose the type of your VPS(Xen、KVM: 1  ,  OpenVZ: 2):"
     read -p "your choice(1 or 2):" os_choice
     if [ "$os_choice" = "1" ]; then
@@ -105,6 +96,21 @@ function pre_install(){
     read -p "CN(default value:VPN CA):" my_cert_cn
 	if [ "$my_cert_cn" = "" ]; then
 		my_cert_cn="VPN CA"
+	fi
+	echo "please input PSK(psk):"
+    read -p "PSK(default value:psk):" k
+	if [ "$k" = "" ]; then
+		k="psk"
+	fi
+	echo "please input UserName(user):"
+    read -p "UserName(default value:user):" u
+	if [ "$u" = "" ]; then
+		u="user"
+	fi
+	echo "please input PassWord(pass):"
+    read -p "PassWord(default value:pass):" p
+	if [ "$p" = "" ]; then
+		p="pass"
 	fi
 	echo "####################################"
     get_char(){
@@ -309,12 +315,12 @@ EOF
 
 # configure the ipsec.secrets
 function configure_secrets(){
-	cat > /usr/local/etc/ipsec.secrets<<-EOF
+	cat > /usr/local/etc/ipsec.secrets<<EOF
 : RSA server.pem
-: PSK "myPSKkey"
-: XAUTH "myXAUTHPass"
-myUserName %any : EAP "myUserPass"
-	EOF
+: PSK "$k"
+: XAUTH "$p"
+$u %any : EAP "$p"
+EOF
 }
 
 # ip forward
@@ -327,37 +333,30 @@ sysctl -p
 
 # iptables set
 function iptables_set(){
-    if [ "$os" = "1" ]; then
-		iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
-		iptables -A FORWARD -s 10.31.0.0/24  -j ACCEPT
-		iptables -A FORWARD -s 10.31.1.0/24  -j ACCEPT
-		iptables -A FORWARD -s 10.31.2.0/24  -j ACCEPT
-		iptables -A INPUT -i eth0 -p esp -j ACCEPT
-		iptables -A INPUT -i eth0 -p udp --dport 500 -j ACCEPT
-		iptables -A INPUT -i eth0 -p tcp --dport 500 -j ACCEPT
-		iptables -A INPUT -i eth0 -p udp --dport 4500 -j ACCEPT
-		iptables -A INPUT -i eth0 -p udp --dport 1701 -j ACCEPT
-		iptables -A INPUT -i eth0 -p tcp --dport 1723 -j ACCEPT
-		iptables -A FORWARD -j REJECT
-		iptables -t nat -A POSTROUTING -s 10.31.0.0/24 -o eth0 -j MASQUERADE
-		iptables -t nat -A POSTROUTING -s 10.31.1.0/24 -o eth0 -j MASQUERADE
-		iptables -t nat -A POSTROUTING -s 10.31.2.0/24 -o eth0 -j MASQUERADE
-	else
-		iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
-		iptables -A FORWARD -s 10.31.0.0/24  -j ACCEPT
-		iptables -A FORWARD -s 10.31.1.0/24  -j ACCEPT
-		iptables -A FORWARD -s 10.31.2.0/24  -j ACCEPT
-		iptables -A INPUT -i venet0 -p esp -j ACCEPT
-		iptables -A INPUT -i venet0 -p udp --dport 500 -j ACCEPT
-		iptables -A INPUT -i venet0 -p tcp --dport 500 -j ACCEPT
-		iptables -A INPUT -i venet0 -p udp --dport 4500 -j ACCEPT
-		iptables -A INPUT -i venet0 -p udp --dport 1701 -j ACCEPT
-		iptables -A INPUT -i venet0 -p tcp --dport 1723 -j ACCEPT
-		iptables -A FORWARD -j REJECT
-		iptables -t nat -A POSTROUTING -s 10.31.0.0/24 -o venet0 -j MASQUERADE
-		iptables -t nat -A POSTROUTING -s 10.31.1.0/24 -o venet0 -j MASQUERADE
-		iptables -t nat -A POSTROUTING -s 10.31.2.0/24 -o venet0 -j MASQUERADE
+    netCard=
+    if test $os -eq 1; then
+	netCard=venet0
+    elif test $os -eq 2; then
+	netCard=eth0
     fi
+
+    iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+    iptables -A FORWARD -s 10.31.0.0/24  -j ACCEPT
+    iptables -A FORWARD -s 10.31.1.0/24  -j ACCEPT
+    iptables -A FORWARD -s 10.31.2.0/24  -j ACCEPT
+    iptables -A INPUT -i $netCard -p esp -j ACCEPT
+    iptables -A INPUT -i $netCard -p udp --dport 500 -j ACCEPT
+    iptables -A INPUT -i $netCard -p tcp --dport 500 -j ACCEPT
+    iptables -A INPUT -i $netCard -p udp --dport 4500 -j ACCEPT
+    iptables -A INPUT -i $netCard -p udp --dport 1701 -j ACCEPT
+    iptables -A INPUT -i $netCard -p tcp --dport 1723 -j ACCEPT
+    iptables -A FORWARD -j REJECT
+    iptables -t nat -A POSTROUTING -s 10.31.0.0/24 -o $netCard -j MASQUERADE
+    iptables -t nat -A POSTROUTING -s 10.31.1.0/24 -o $netCard -j MASQUERADE
+    iptables -t nat -A POSTROUTING -s 10.31.2.0/24 -o $netCard -j MASQUERADE
+    
+    iptables --table nat --append POSTROUTING --jump MASQUERADE
+
 	iptables-save > /etc/iptables.rules
 	cat > /etc/network/if-up.d/iptables<<EOF
 #!/bin/sh
