@@ -23,7 +23,6 @@ function install_strongswan(){
 	rootness
 	disable_selinux
 	get_ip
-	get_system
 	pre_install
 	lib_install
 	download_files
@@ -132,13 +131,8 @@ function pre_install(){
 
 #install necessary lib
 function lib_install(){
-	if [ "$system_str" = "0" ]; then
-	yum -y update
-	yum -y install pam-devel openssl-devel make gcc
-	else
-	apt-get -y update
-	apt-get -y install libpam0g-dev libssl-dev make gcc
-	fi
+    apt-get -y update
+    apt-get -y install libpam0g-dev libssl-dev make gcc
 }
 
 # Download strongswan
@@ -146,7 +140,7 @@ function download_files(){
     if [ -f strongswan.tar.gz ];then
         echo -e "strongswan.tar.gz [\033[32;1mfound\033[0m]"
     else
-        if ! wget https://download.strongswan.org/strongswan-5.2.1.tar.gz;then
+        if ! wget https://download.strongswan.org/strongswan.tar.gz;then
             echo "Failed to download strongswan.tar.gz"
             exit 1
         fi
@@ -156,7 +150,7 @@ function download_files(){
         cd $cur_dir/strongswan-*/
     else
         echo ""
-        echo "Unzip strongswan.tar.gz failed! Please visit http://quericy.me/blog/699 and contact."
+        echo "Unzip strongswan.tar.gz failed!"
         exit 1
     fi
 }
@@ -333,7 +327,6 @@ sysctl -p
 
 # iptables set
 function iptables_set(){
-    sysctl -w net.ipv4.ip_forward=1
     if [ "$os" = "1" ]; then
 		iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
 		iptables -A FORWARD -s 10.31.0.0/24  -j ACCEPT
@@ -365,16 +358,12 @@ function iptables_set(){
 		iptables -t nat -A POSTROUTING -s 10.31.1.0/24 -o venet0 -j MASQUERADE
 		iptables -t nat -A POSTROUTING -s 10.31.2.0/24 -o venet0 -j MASQUERADE
     fi
-	if [ "$system_str" = "0" ]; then
-		service iptables save
-	else
-		iptables-save > /etc/iptables.rules
-		cat > /etc/network/if-up.d/iptables<<EOF
+	iptables-save > /etc/iptables.rules
+	cat > /etc/network/if-up.d/iptables<<EOF
 #!/bin/sh
 iptables-restore < /etc/iptables.rules
 EOF
-		chmod +x /etc/network/if-up.d/iptables
-	fi
+	chmod +x /etc/network/if-up.d/iptables
 }
 
 # echo the success info
@@ -394,4 +383,4 @@ function success_info(){
 }
 
 # Initialization step
-install_ikev2
+install_strongswan
