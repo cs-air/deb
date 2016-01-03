@@ -323,6 +323,14 @@ myUserName %any : EAP "myUserPass"
 	EOF
 }
 
+# ip forward
+function ip_forward(){
+cat > /etc/sysctl.d/pptpd <<END
+net.ipv4.ip_forward=1
+END
+sysctl -p
+}
+
 # iptables set
 function iptables_set(){
     sysctl -w net.ipv4.ip_forward=1
