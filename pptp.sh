@@ -74,7 +74,8 @@ sysctl -p
 }
 
 function config_iptables(){
-iptables -t nat -A POSTROUTING -j SNAT --to-source $ip
+#iptables -t nat -A POSTROUTING -j SNAT --to-source $ip
+iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j SNAT --to-source $ip
 iptables-save > /etc/iptables.rules
 cat > /etc/network/if-pre-up.d/iptables <<END
 #!/bin/sh
