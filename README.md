@@ -5,6 +5,7 @@ dev-deb
 passwd
 adduser cs
 usermod -a -G sudo cs
+curl https://install.meteor.com/ | sh
 ```
 test
 ```bash
