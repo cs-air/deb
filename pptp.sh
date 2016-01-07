@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "
+function install_pptp(){echo "
 cat /dev/ppp
 cat /dev/tun
 wget https://raw.github.com/cs-air/deb/master/pptp.sh && bash pptp.sh
@@ -25,7 +25,8 @@ else
   show_info
   fi
 fi
-    
+}
+
 function install_pptpd(){
   apt-get install -y pptpd iptables
 }
@@ -92,3 +93,5 @@ echo "Connect to your VPS at $ip with these credentials:"
 echo "Username:$u ##### Password: $p"
 echo "######################################################"
 }
+
+install_pptp
