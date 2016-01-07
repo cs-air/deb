@@ -5,7 +5,13 @@ dev-deb
 passwd
 adduser cs
 usermod -a -G sudo cs
+
 curl https://install.meteor.com/ | sh
+
+echo "export LC_ALL=en_US.UTF-8" > ~/.bashrc
+apt-get install locales
+locale-gen en_US.UTF-8
+dpkg-reconfigure locales
 ```
 test
 ```bash
