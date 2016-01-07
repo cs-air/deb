@@ -1,5 +1,6 @@
 #!/bin/bash
-function install_pptp(){echo "
+function install_pptp(){
+echo "
 cat /dev/ppp
 cat /dev/tun
 wget https://raw.github.com/cs-air/deb/master/pptp.sh && bash pptp.sh
