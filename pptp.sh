@@ -4,24 +4,45 @@ cat /dev/ppp
 cat /dev/tun
 wget https://raw.github.com/cs-air/deb/master/pptp.sh && bash pptp.sh
 "
+echo "1)Add User;2)Fix;*)Install PPTP:"
+read -p "your choice(1 or 2):" choice
+if [ "$choice" = "1" ]; then
+get_ip
+add_user
+restart_pptpd
+show_info
+else
+  if [ "$choice" = "2" ]; then
+  fix_pptpd
+  else
+  install_pptpd
+  get_ip
+  config_pptpd
+  add_user
+  ip_forward
+  config_iptables
+  restart_pptpd
+  show_info
+  fi
+fi
+    
+function install_pptpd(){
+  apt-get install -y pptpd iptables
+}
+
+function fix_pptpd(){
+apt-get -y purge pptpd ppp bcrelay iptables
+rm -rf /etc/pptpd.conf
+rm -rf /etc/ppp
+rm -rf /etc/sysctl.d/ip_forward
+rm -rf /etc/iptables.rules
+rm -rf /etc/network/if-pre-up.d/iptables
+rm -rf /dev/ppp
+mknod /dev/ppp c 108 0
+}
 
 function get_ip(){
   ip=`ifconfig | grep 'inet addr:'| grep -v '127.0.0.*' | cut -d: -f2 | awk '{ print $1}' | head -1`
-}
-
-function install_pptpd(){
-  apt-get install pptpd 
-}
-
-function fix(){
-#apt-get purge pptpd ppp bcrelay
-#rm -rf /etc/pptpd.conf
-#rm -rf /etc/ppp
-#rm -rf /etc/sysctl.d/pptpd
-#rm -rf /etc/iptables.rules
-#rm -rf /etc/network/if-pre-up.d/iptables
-#rm -rf /dev/ppp
-#mknod /dev/ppp c 108 0}
 }
 
 function config_pptpd(){
@@ -67,7 +88,6 @@ sleep 5
 
 function show_info(){
 echo "######################################################"
-echo "PPTP setup complete!"
 echo "Connect to your VPS at $ip with these credentials:"
 echo "Username:$u ##### Password: $p"
 echo "######################################################"
