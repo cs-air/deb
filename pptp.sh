@@ -2,69 +2,73 @@
 echo "
 cat /dev/ppp
 cat /dev/tun
-wget https://raw.github.com/cscode/deb/master/pptp.sh && sh pptp.sh
+wget https://raw.github.com/cs-air/deb/master/pptp.sh && bash pptp.sh
 "
 
-echo "######################################################"
-echo "Enter username:" && read u
-echo "Enter password:" && read p
+function get_ip(){
+  ip=`ifconfig | grep 'inet addr:'| grep -v '127.0.0.*' | cut -d: -f2 | awk '{ print $1}' | head -1`
+}
 
-# get IP
-ip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
+function install_pptpd(){
+  apt-get install pptpd 
+}
 
-# install
-apt-get update
+function fix(){
 #apt-get purge pptpd ppp bcrelay
 #rm -rf /etc/pptpd.conf
 #rm -rf /etc/ppp
 #rm -rf /etc/sysctl.d/pptpd
-#rm -rf /etc/iptables.conf
+#rm -rf /etc/iptables.rules
 #rm -rf /etc/network/if-pre-up.d/iptables
-apt-get install pptpd
-#apt-get install -y iptables logrotate tar cpio perl
-
-# config
 #rm -rf /dev/ppp
-#mknod /dev/ppp c 108 0
-#echo 1 > /proc/sys/net/ipv4/ip_forward 
-#echo "mknod /dev/ppp c 108 0" >> /etc/rc.local
-#echo "echo 1 > /proc/sys/net/ipv4/ip_forward" >> /etc/rc.local
+#mknod /dev/ppp c 108 0}
+}
 
+function config_pptpd(){
 cat >> /etc/pptpd.conf <<END
-localip 10.10.10.1
-remoteip 10.10.10.11-20
+localip 192.168.0.1
+remoteip 192.168.0.34-40
 END
-
 cat >> /etc/ppp/pptpd-options <<END
 ms-dns 8.8.8.8
 ms-dns 8.8.4.4
 END
+}
 
+function add_user(){
+echo "Enter username:" && read u
+echo "Enter password:" && read p
 cat >> /etc/ppp/chap-secrets <<END
 $u * $p *
 END
+}
 
-cat > /etc/sysctl.d/pptpd <<END
+function ip_forward(){
+cat > /etc/sysctl.d/ip_forward <<END
 net.ipv4.ip_forward=1
 END
 sysctl -p
+}
 
+function config_iptables(){
 iptables -t nat -A POSTROUTING -j SNAT --to-source $ip
-#iptables -t nat -A POSTROUTING -j SNAT --to $ip
-iptables-save > /etc/iptables.conf
-
+iptables-save > /etc/iptables.rules
 cat > /etc/network/if-pre-up.d/iptables <<END
 #!/bin/sh
-iptables-restore < /etc/iptables.conf
+iptables-restore < /etc/iptables.rules
 END
 chmod +x /etc/network/if-pre-up.d/iptables
+}
 
+function restart_pptpd(){
 sleep 5
 /etc/init.d/pptpd restart
+}
 
-echo
+function show_info(){
 echo "######################################################"
 echo "PPTP setup complete!"
 echo "Connect to your VPS at $ip with these credentials:"
 echo "Username:$u ##### Password: $p"
 echo "######################################################"
+}
