@@ -14,6 +14,10 @@ apt-get install -y python build-essential
 curl -sL https://deb.nodesource.com/setup_5.x | bash -
 apt-get install -y nodejs
 
+which python
+npm config set python /usr/bin/python
+npm -g --unsafe-perm install strongloop
+
 npm cache clean
 npm install -g ionic@beta
 
