@@ -48,6 +48,7 @@ mknod /dev/ppp c 108 0
 cat > /etc/rc.local <<END
 rm -rf /dev/ppp
 mknod /dev/ppp c 108 0
+/etc/init.d/pptpd restart
 END
 }
 
