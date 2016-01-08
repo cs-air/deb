@@ -3,7 +3,7 @@ function install_pptp(){
 echo "
 cat /dev/ppp
 cat /dev/tun
-curl -sL https://raw.github.com/cs-air/deb/master/pptp.sh | bash -
+curl -sL https://raw.github.com/cs-air/deb/master/pptp.sh | bash
 wget https://raw.github.com/cs-air/deb/master/pptp.sh && bash pptp.sh
 "
 echo "1)Add User;2)ReInstall;*)Install:"
