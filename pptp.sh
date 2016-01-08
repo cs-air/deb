@@ -7,11 +7,11 @@ wget https://raw.github.com/cs-air/deb/master/pptp.sh && bash pptp.sh
 "
 echo "1)Install;2)Add User;3)ReInstall;*)Fix:"
 read -p "your choice(1 or 2):" choice
-if [ "$choice" = "1" ]
+if [ "$choice" = "1" ];then
   install_pptpd
-elif [ "$choice" = "2" ]
+elif [ "$choice" = "2" ];then
   reinstall_pptpd
-elif [ "$choice" = "3" ]
+elif [ "$choice" = "3" ];then
 get_ip
 add_user
 restart_pptpd
