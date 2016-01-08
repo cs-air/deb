@@ -2,6 +2,13 @@ dev-deb
 ================================
 
 ```bash
+apt-get update
+apt-get install -y dialog sudo apt-utils curl
+apt-get upgrade -y
+apt-get install -y python build-essential
+curl -sL https://deb.nodesource.com/setup_5.x | bash -
+apt-get install -y nodejs
+
 passwd
 adduser cs
 usermod -a -G sudo cs
