@@ -5,7 +5,7 @@ cat /dev/ppp
 cat /dev/tun
 wget https://raw.github.com/cs-air/deb/master/pptp.sh && bash pptp.sh
 "
-echo "1)Add User;2)Fix PPP;3)Install PPTP:"
+echo "1)Add User;2)ReInstall;*)Install:"
 read -p "your choice(1 or 2):" choice
 if [ "$choice" = "1" ]; then
 get_ip
@@ -13,9 +13,25 @@ add_user
 restart_pptpd
 show_info
 elif [ "$choice" = "2" ]; then
-  fix_ppp
-elif
+  reinstall_pptpd
+else
   install_pptpd
+fi
+}
+
+function reinstall_pptpd(){
+apt-get -y purge pptpd ppp bcrelay iptables
+rm -rf /etc/pptpd.conf
+rm -rf /etc/ppp
+rm -rf /etc/sysctl.d/ip_forward
+rm -rf /etc/iptables.rules
+rm -rf /etc/network/if-pre-up.d/iptables
+fix_ppp
+install_pptpd
+}
+
+function install_pptpd(){
+  apt-get install -y pptpd iptables
   get_ip
   config_pptpd
   add_user
@@ -23,17 +39,13 @@ elif
   config_iptables
   restart_pptpd
   show_info
-fi
-}
-
-function install_pptpd(){
-  apt-get install -y pptpd iptables
 }
 
 function fix_ppp(){
+cat > /etc/rc.local <<END
 rm -rf /dev/ppp
 mknod /dev/ppp c 108 0
-restart_pptpd
+END
 }
 
 function fix_pptpd(){
