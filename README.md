@@ -5,16 +5,17 @@ dev-deb
 apt-get update
 apt-get install -y dialog sudo apt-utils curl
 apt-get upgrade -y
+
+passwd
+adduser cs
+usermod -a -G sudo cs
+
 apt-get install -y python build-essential
 curl -sL https://deb.nodesource.com/setup_5.x | bash -
 apt-get install -y nodejs
 
 npm cache clean
 npm install -g ionic@beta
-
-passwd
-adduser cs
-usermod -a -G sudo cs
 
 curl https://install.meteor.com/ | sh
 
