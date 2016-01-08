@@ -26,6 +26,7 @@ rm -rf /etc/ppp
 rm -rf /etc/sysctl.d/ip_forward
 rm -rf /etc/iptables.rules
 rm -rf /etc/network/if-pre-up.d/iptables
+rm -rf /etc/rc.local
 fix_ppp
 install_pptpd
 }
@@ -42,6 +43,8 @@ function install_pptpd(){
 }
 
 function fix_ppp(){
+rm -rf /dev/ppp
+mknod /dev/ppp c 108 0
 cat > /etc/rc.local <<END
 rm -rf /dev/ppp
 mknod /dev/ppp c 108 0
