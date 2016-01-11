@@ -19,7 +19,7 @@ npm config set python /usr/bin/python
 npm -g --unsafe-perm install strongloop
 
 npm cache clean
-npm install -g ionic@beta
+npm install -g --unsafe-perm ionic@beta
 
 curl https://install.meteor.com/ | sh
 
