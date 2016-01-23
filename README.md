@@ -29,12 +29,10 @@ sudo apt-get install -y nodejs
 curl -sL https://deb.nodesource.com/setup_4.x | bash -
 apt-get install -y nodejs
 
+npm cache clean
 which python
 npm config set python /usr/bin/python
-npm -g --unsafe-perm install strongloop
-
-npm cache clean
-npm install -g --unsafe-perm ionic@beta
+npm install -g ionic@beta --unsafe-perm
 
 curl https://install.meteor.com/ | sh
 
