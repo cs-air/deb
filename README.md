@@ -1,4 +1,4 @@
-dev-deb
+deb
 ================================
 
 ```bash
@@ -82,5 +82,5 @@ vpn
 ```bash
 cat /dev/ppp
 cat /dev/tun
-wget https://raw.github.com/cs-air/deb/master/pptp.sh && bash pptp.sh
+wget https://raw.github.com/cs-id/deb/master/pptp.sh && bash pptp.sh
 ```
