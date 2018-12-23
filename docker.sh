@@ -25,3 +25,6 @@ docker run \
     -d --privileged \
     hwdsl2/ipsec-vpn-server
     
+docker logs vpn
+docker exec -it vpn ipsec status
+docker exec -it vpn ipsec whack --trafficstatus
